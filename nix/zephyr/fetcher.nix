@@ -149,7 +149,7 @@ in stdenv.mkDerivation ((lib.removeAttrs args [ "hash" ]) // {
   buildPhase = ''
     runHook preBuild
 
-    west update
+    west update --fetch=always
 
     runHook postBuild
   '';
