@@ -73,6 +73,26 @@
     runHook preInstall
 
     mkdir $out
+
+    if [ -f "./zephyr/.config" ]
+    then
+      grep -v -e "^#" -e "^$" "./zephyr/.config" | sort
+    else
+      echo "No Kconfig output"
+    fi
+
+
+    if [ -f "./zephyr/zephyr.dts" ]
+    then
+      cp "./zephyr/zephyr.dts" $out/zephyr.dts
+    elif [ -f "./zephyr/zephyr.dts.pre" ]
+    then
+     cp ./zephyr/zephyr.dts.pre $out/zephyr.dts
+    else
+      echo "No Devicetree output"
+    fi
+
+
     cp */*.uf2 $out/
 
     runHook postInstall
